@@ -8,6 +8,9 @@ app.style.height = appBoxHeight;
 
 const slashSize = 5;
 
+const rowsQtd = appBoxWidht / slashSize;
+const colsQtd = appBoxHeight / slashSize;
+
 console.log("app", app);
 
 function createSlash(x, y, direction) {
@@ -27,9 +30,12 @@ function createSlash(x, y, direction) {
   app.appendChild(slash);
 }
 
-for (let i = 0; i < 100; i++) {
+// ROWs
+for (let i = 0; i < rowsQtd; i++) {
   let firstSlashDirV = i % 2 == 0;
-  for (let j = 0; j < 100; j++) {
+
+  // COLs
+  for (let j = 0; j < colsQtd; j++) {
     let direction;
     if (firstSlashDirV) {
       direction = j % 2 == 0 ? "v" : "h";
