@@ -30,11 +30,10 @@ function createSlash(x, y, direction) {
   app.appendChild(slash);
 }
 
-// ROWs
+const positions = [];
+
 for (let i = 0; i < rowsQtd; i++) {
   let firstSlashDirV = i % 2 == 0;
-
-  // COLs
   for (let j = 0; j < colsQtd; j++) {
     let direction;
     if (firstSlashDirV) {
@@ -42,11 +41,39 @@ for (let i = 0; i < rowsQtd; i++) {
     } else {
       direction = j % 2 == 0 ? "h" : "v";
     }
-
-    console.log(i, j, direction, firstSlashDirV, "firstSlashDirV");
-
-    let row = (i / 500) * 100;
-
-    createSlash(i * 5, j * 5, direction);
+    positions.push({ i, j, direction });
   }
 }
+
+// Fisher-Yates shuffle
+for (let idx = positions.length - 1; idx > 0; idx--) {
+  const j = Math.floor(Math.random() * (idx + 1));
+  [positions[idx], positions[j]] = [positions[j], positions[idx]];
+}
+
+let index = 0;
+
+function renderBatch() {
+  const batchSize = 100;
+  for (let i = 0; i < batchSize && index < positions.length; i++) {
+    const { i: row, j: col, direction } = positions[index];
+    createSlash(row * 5, col * 5, direction);
+    index++;
+  }
+
+  if (index < positions.length) {
+    requestAnimationFrame(renderBatch);
+  }
+}
+
+renderBatch();
+
+//
+// for (const { i, j, direction } of positions) {
+//   createSlash(i * 5, j * 5, direction);
+// }
+//
+// [
+//   [], [], [],
+//   [], [], [],
+// ]
