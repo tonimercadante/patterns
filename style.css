@@ -1,19 +1,42 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: #111;
+  cursor: crosshair;
+  height: 100%;
+  width: 100%;
 }
 
 #app {
-  padding: 0;
-  margin: 0;
-  background-color: #ff0;
+  height: 100vh;
+  width: 100%;
   position: relative;
+  cursor: crosshair;
 }
 
 .slash {
   position: absolute;
-  background-color: #ff0012;
-  width: 1;
-  height: 1;
+  width: 1px;
+  height: 1px;
   transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.box {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: border 0.2s;
+}
+
+.box:hover {
+  border: 1px solid rgba(255, 255, 255, 0.6);
 }
